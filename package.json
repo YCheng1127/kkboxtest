@@ -1,0 +1,32 @@
+{
+  "name": "kkboxtest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YCheng1127/kkboxtest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YCheng1127/kkboxtest/issues"
+  },
+  "homepage": "https://github.com/YCheng1127/kkboxtest#readme",
+  "dependencies": {
+    "@kkbox/kkbox-js-sdk": "^1.3.3",
+    "express": "^4.16.3"
+  },
+  
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-preset-env": "^1.7.0"
+  }
+
+  
+}
