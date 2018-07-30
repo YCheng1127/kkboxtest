@@ -1,0 +1,22 @@
+//search
+hello
+//body-left
+boy
+//body-right
+<h2>推薦歌曲</h2>
+    <div class="box"> <img src="images/pic_2.jpg" width="130" height="86" alt="Pic 1" class="left" />
+        <p>Prophecy Remixes</p>
+        <div class="btns"> <a href="#"><span>Listen</span></a> <a href="#"><span>Select</span></a> </div>
+            <div class="clear"></div>
+        </div>
+    <div class="box"> <img src="images/pic_3.jpg" width="130" height="86" alt="Pic 2" class="left" />
+        <p>The Last Day of Oakland</p>
+        <div class="btns"> <a href="#"><span>Listen</span></a> <a href="#"><span>Select</span></a> </div>
+            <div class="clear"></div>
+        </div>
+    <div class="box"> <img src="images/pic_4.jpg" width="130" height="86" alt="Pic 3" class="left" />
+        <p>Hump Thru the Winter</p>
+        <div class="btns"> <a href="#"><span>Listen</span></a> <a href="#"><span>Select</span></a> </div>
+            <div class="clear"></div>
+    </div>
+//end

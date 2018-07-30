@@ -8,21 +8,23 @@ var client_secret = "9089bdbc62ac2306591000d605662e7a";
 const express = require('express')
 const app = express()
 
-const port = 10130
+const port = 10125
 
 
 const bodyParser = require('body-parser')//post
 const https = require('https')
 const fs = require('fs')
+//var content = require("./page.txt")
+//console.log(content)
+
 /*const mysql = require('mysql')*/
 /*
 var WebSocketServer = require('ws').Server;
 */
 
 //read json file
-/*var fs = require("fs");
-var content = fs.readFileSync("./public/name.json");
-var jsonfile=JSON.parse(content);*/
+//var content = fs.readFileSync("./page_txt/pg1.txt", "utf8");
+//var jsonfile=JSON.parse(content)
 
 app.use(bodyParser.json());    // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({extended:true}));//to support URL-encided bodies
@@ -41,13 +43,6 @@ var server = https.createServer(options, app).listen(port)
 
 
 /*
-var http = require('http')
-var express = require('express');
-var app = express();
-var server = http.createServer(app);
-app.use(express.static(__dirname + '/public'));*/
-
-/*
 app.get('/', function(request, response){
 	response.end('Hello');
 });
@@ -62,57 +57,58 @@ server.listen(8080, '127.0.0.1', function(){
 // Create an auth object with client id and secret
 
 
-var auth = new _kkboxJsSdk.Auth(client_id, client_secret);
+//var auth = new _kkboxJsSdk.Auth(client_id, client_secret);
 
 
 
+var util = require("util")
 
 
 
-
-
+var nowPage = 1
 var access_token = "Tc3c2Pt97jIvl26uiZkVrg=="
   // Create an API object with your access token
 var api = new _kkboxJsSdk.Api(access_token)
-
-function func_Page(iSearch, iRight, iLeft){
+var chart = {}
+// object page and constructor
+function func_Page(iSearch, iLeft, iRight){
   var MyObj = this;
   MyObj.searchpart = iSearch;
-  MyObj.rightpart = iRight;
   MyObj.leftpart = iLeft;
+  MyObj.rightpart = iRight;
 };
 
-
-
+var page4_num = 0
 app.post('/getpage', function(req, res){
-  if(req.body.index == 1){
-    var Page = new func_Page("1",
-       "<h2>推薦歌曲</h2>",
-        "1")
-    res.send(Page)
+
+  nowPage = req.body.index
+  var pagedefault = fs.readFileSync("./page_txt/pg" + req.body.index + ".txt", "utf8")
+  var Pagepart = [
+    pagedefault.search("//search"),
+    pagedefault.search("//body-left"),
+    pagedefault.search("//body-right"),
+    pagedefault.search("//end")
+  ]
+  var Page = new func_Page(
+      pagedefault.substring(Pagepart[0] + 8, Pagepart[1]),
+      pagedefault.substring(Pagepart[1] + 11, Pagepart[2]),
+      pagedefault.substring(Pagepart[2 ]+ 12, Pagepart[3])
+  )
+  var Pack
+  //chart
+  if(req.body.index == 4){
+    api.chartFetcher.fetchCharts().then((data)=>{
+      chart = JSON.parse(JSON.stringify(data.data.data))
+      Pack = {chart: chart, Page, total: data.data.summary.total}
+      //console.log(Pack.Page.rightpart)
+      res.send(Pack)
+    })
   }
-  else if(req.body.index == 2){
-    var Page = new func_Page("2", "2", "2")
-    res.send(Page)
-  }
-  else if(req.body.index == 3){
-    var Page = new func_Page("3", "3", "3")
-    res.send(Page)
-  }
-  else if(req.body.index == 4){
-    var Page = new func_Page("4", "4", "4")
-    res.send(Page)
-  }
-  else if(req.body.index == 5){
-    var Page = new func_Page("5", "5", "5")
-    res.send(Page)
-  }
-  else if(req.body.index == 6){
-    var Page = new func_Page("6", "6", "6")
-    res.send(Page)
-  }
-    
+  
+
+  
 })
 
-api.chartFetcher.fetchCharts().then((data)=>{console.log(data.data)})
+
+api.chartFetcher.fetchCharts().then((data)=>{console.log(data.data.summary)})
  
