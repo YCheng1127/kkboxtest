@@ -15,7 +15,7 @@ function changeMe(num){
       document.getElementById("search").innerHTML = data.Page.searchpart
       
       if(num == 4){
-        build_chart_page(data)
+        build_chart_page(data, 1)
       }
 
     }
